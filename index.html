@@ -1,115 +1,109 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
+  <body>
     <title>Heads or Tails</title>
 
     <style>
-        body {
-            text-align: center;
-            font-family: Arial;
-            margin-top: 50px;
-        }
+      body {
+        text-align: center;
+        font-family: Arial;
+        margin-top: 50px;
+      }
 
-        button {
-            padding: 10px 20px;
-            margin: 10px;
-            font-size: 16px;
-        }
+      button {
+        padding: 10px 20px;
+        margin: 10px;
+        font-size: 16px;
+      }
 
-        .result {
-            font-size: 28px;
-            font-weight: bold;
-        }
+      .result {
+        font-size: 28px;
+        font-weight: bold;
+      }
 
-        .coin {
-            font-size: 400px;
-            margin: 20px;
-        }
+      .coin {
+        font-size: 400px;
+        margin: 20px;
+      }
 
-        .flipping {
-            color: orange;
-        }
+      .flipping {
+        color: rgb(0, 0, 0);
+      }
 
-        .heads {
-            color: green;
-        }
+      .heads {
+        color: rgb(0, 0, 0);
+      }
 
-        .tails {
-            color: blue;
-        }
+      .tails {
+        color: rgb(0, 0, 0);
+      }
     </style>
-</head>
+  </body>
 
-<body>
+  <body>
+    <h1>Guess the Coin Flip!</h1>
 
-<h1>Guess the Coin Flip!</h1>
+    <p>Choose Heads or Tails:</p>
 
-<p>Choose Heads or Tails:</p>
+    <button onclick="setGuess('Heads')">Heads</button>
+    <button onclick="setGuess('Tails')">Tails</button>
 
-<button onclick="setGuess('Heads')">Heads</button>
-<button onclick="setGuess('Tails')">Tails</button>
+    <h3 id="yourGuess">Your guess: None</h3>
 
-<h3 id="yourGuess">Your guess: None</h3>
+    <button onclick="flipCoin()">Flip Coin</button>
 
-<button onclick="flipCoin()">Flip Coin</button>
+    <div id="coin">Coin</div>
 
-<div id="coin">🪙</div>
+    <h2 id="result"></h2>
+    <h3 id="outcome"></h3>
 
-<h2 id="result"></h2>
-<h3 id="outcome"></h3>
+    <p>Wins: <span id="wins">0</span></p>
+    <p>Losses: <span id="losses">0</span></p>
 
-<p>Wins: <span id="wins">0</span></p>
-<p>Losses: <span id="losses">0</span></p>
+    <script>
+      let userGuess = "";
+      let wins = 0;
+      let losses = 0;
 
-<script>
-    let userGuess = "";
-    let wins = 0;
-    let losses = 0;
-
-    function setGuess(guess) {
+      function setGuess(guess) {
         userGuess = guess;
         document.getElementById("yourGuess").innerHTML = "Your guess: " + guess;
-    }
+      }
 
-    function flipCoin() {
+      function flipCoin() {
         if (userGuess === "") {
-            alert("Choose Heads or Tails first!");
-            return;
+          alert("Choose Heads or Tails first!");
+          return;
         }
 
-        let coinText = document.getElementById("coin");
-        let resultText = document.getElementById("result");
-        let outcomeText = document.getElementById("outcome");
+        let coin = document.getElementById("coin");
+        let result = document.getElementById("result");
+        let outcome = document.getElementById("outcome");
 
-        coinText.innerHTML = "Flipping...";
-        coinText.className = "flipping";
-        resultText.innerHTML = "";
-        outcomeText.innerHTML = "";
+        coin.innerHTML = "Flipping...";
+        coin.className = "flipping";
+        result.innerHTML = "";
+        outcome.innerHTML = "";
 
-        setTimeout(function() {
+        setTimeout(function () {
+          let result = Math.random() < 0.5 ? "Heads" : "Tails";
 
-            let result = Math.random() < 0.5 ? "Heads" : "Tails";
+          coin.innerHTML = result === "Heads" ? "HEADS" : "TAILS";
+          coin.className = result === "Heads" ? "heads" : "tails";
 
-            coinText.innerHTML = result === "Heads" ? "🙂 HEADS" : "🙃 TAILS";
-            coinText.className = result === "Heads" ? "heads" : "tails";
+          result.innerHTML = "Coin landed on: " + result;
 
-            resultText.innerHTML = "Coin landed on: " + result;
-
-            if (result === userGuess) {
-                outcomeText.innerHTML = "You guessed right!";
-                wins++;
-                document.getElementById("wins").innerHTML = wins;
-            } else {
-                outcomeText.innerHTML = "Wrong guess!";
-                losses++;
-                document.getElementById("losses").innerHTML = losses;
-            }
-
-        }, 1500); // waits 1.5 seconds before showing result
-    }
-</script>
-
-</body>
+          if (result === userGuess) {
+            outcome.innerHTML = "You guessed right!";
+            wins++;
+            document.getElementById("wins").innerHTML = wins;
+          } else {
+            outcome.innerHTML = "Wrong guess!";
+            losses++;
+            document.getElementById("losses").innerHTML = losses;
+          }
+        }, 1500); // waits 1.5 secs before showing result
+      }
+    </script>
+  </body>
 </html>
-
-

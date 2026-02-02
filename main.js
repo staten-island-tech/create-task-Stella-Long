@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
-<head>
+<body>
+<>
     <title>Coin Flip with Score</title>
-</head>
+<body/>
 
 <body style="text-align:center; font-family:Arial;">
 
