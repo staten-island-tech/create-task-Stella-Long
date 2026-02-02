@@ -1,49 +1,115 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Coin Flip</title>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Heads or Tails</title>
 
     <style>
-      body {
-        font-family: "DM Sans", sans-serif;
-      }
+        body {
+            text-align: center;
+            font-family: Arial;
+            margin-top: 50px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+        }
+
+        .result {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .coin {
+            font-size: 400px;
+            margin: 20px;
+        }
+
+        .flipping {
+            color: orange;
+        }
+
+        .heads {
+            color: green;
+        }
+
+        .tails {
+            color: blue;
+        }
     </style>
-  </head>
+</head>
 
-  <body class="min-h-screen bg-gray-100 text-gray-900">
-    <header class="text-center py-10">
-      <h1 class="text-4xl font-bold"></h1>
-      <p class="text-gray-600 mt-2"></p>
-    </header>
+<body>
 
-    <form id="search-form" class="flex justify-center mb-8 px-4">
-      <div
-        class="flex w-full max-w-lg border border-gray-300 rounded-md bg-white"
-      >
-        <button type="submit" class="px-4 border-l border-gray-300 bg-gray-100">
-          Search
-        </button>
-      </div>
-    </form>
+<h1>Guess the Coin Flip!</h1>
 
-    <main class="max-w-6xl mx-auto px-4">
-      <div
-        class="api-response grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
-      ></div>
-    </main>
+<p>Choose Heads or Tails:</p>
 
-    <footer class="text-center text-gray-500 text-sm py-8"></footer>
+<button onclick="setGuess('Heads')">Heads</button>
+<button onclick="setGuess('Tails')">Tails</button>
 
-    <script type="module" src="src/main.js"></script>
-  </body>
+<h3 id="yourGuess">Your guess: None</h3>
+
+<button onclick="flipCoin()">Flip Coin</button>
+
+<div id="coin">🪙</div>
+
+<h2 id="result"></h2>
+<h3 id="outcome"></h3>
+
+<p>Wins: <span id="wins">0</span></p>
+<p>Losses: <span id="losses">0</span></p>
+
+<script>
+    let userGuess = "";
+    let wins = 0;
+    let losses = 0;
+
+    function setGuess(guess) {
+        userGuess = guess;
+        document.getElementById("yourGuess").innerHTML = "Your guess: " + guess;
+    }
+
+    function flipCoin() {
+        if (userGuess === "") {
+            alert("Choose Heads or Tails first!");
+            return;
+        }
+
+        let coinText = document.getElementById("coin");
+        let resultText = document.getElementById("result");
+        let outcomeText = document.getElementById("outcome");
+
+        coinText.innerHTML = "Flipping...";
+        coinText.className = "flipping";
+        resultText.innerHTML = "";
+        outcomeText.innerHTML = "";
+
+        setTimeout(function() {
+
+            let result = Math.random() < 0.5 ? "Heads" : "Tails";
+
+            coinText.innerHTML = result === "Heads" ? "🙂 HEADS" : "🙃 TAILS";
+            coinText.className = result === "Heads" ? "heads" : "tails";
+
+            resultText.innerHTML = "Coin landed on: " + result;
+
+            if (result === userGuess) {
+                outcomeText.innerHTML = "You guessed right!";
+                wins++;
+                document.getElementById("wins").innerHTML = wins;
+            } else {
+                outcomeText.innerHTML = "Wrong guess!";
+                losses++;
+                document.getElementById("losses").innerHTML = losses;
+            }
+
+        }, 1500); // waits 1.5 seconds before showing result
+    }
+</script>
+
+</body>
 </html>
+
+
