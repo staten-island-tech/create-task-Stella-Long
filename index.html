@@ -1,6 +1,6 @@
 <!doctype html>
 <html>
-  <body>
+  <head>
     <title>Heads or Tails</title>
 
     <style>
@@ -25,20 +25,8 @@
         font-size: 400px;
         margin: 20px;
       }
-
-      .flipping {
-        color: rgb(0, 0, 0);
-      }
-
-      .heads {
-        color: rgb(0, 0, 0);
-      }
-
-      .tails {
-        color: rgb(0, 0, 0);
-      }
     </style>
-  </body>
+  </head>
 
   <body>
     <h1>Guess the Coin Flip!</h1>
@@ -76,33 +64,33 @@
           return;
         }
 
-        let coin = document.getElementById("coin");
-        let result = document.getElementById("result");
-        let outcome = document.getElementById("outcome");
+        let coinText = document.getElementById("coin");
+        let resultText = document.getElementById("result");
+        let outcomeText = document.getElementById("outcome");
 
-        coin.innerHTML = "Flipping...";
-        coin.className = "flipping";
-        result.innerHTML = "";
-        outcome.innerHTML = "";
+        coinText.innerHTML = "Flipping...";
+        coinText.className = "flipping";
+        resultText.innerHTML = "";
+        outcomeText.innerHTML = "";
 
         setTimeout(function () {
           let result = Math.random() < 0.5 ? "Heads" : "Tails";
 
-          coin.innerHTML = result === "Heads" ? "HEADS" : "TAILS";
-          coin.className = result === "Heads" ? "heads" : "tails";
+          coinText.innerHTML = result === "Heads" ? " HEADS" : "TAILS";
+          coinText.className = result === "Heads" ? "heads" : "tails";
 
-          result.innerHTML = "Coin landed on: " + result;
+          resultText.innerHTML = "Coin landed on: " + result;
 
           if (result === userGuess) {
-            outcome.innerHTML = "You guessed right!";
+            outcomeText.innerHTML = "Your correct";
             wins++;
             document.getElementById("wins").innerHTML = wins;
           } else {
-            outcome.innerHTML = "Wrong guess!";
+            outcomeText.innerHTML = "Your wrong";
             losses++;
             document.getElementById("losses").innerHTML = losses;
           }
-        }, 1500); // waits 1.5 secs before showing result
+        }, 1500);
       }
     </script>
   </body>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <body>
-<>
     <title>Coin Flip with Score</title>
 <body/>
 
