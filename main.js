@@ -1,37 +1,45 @@
-<!DOCTYPE html>
-<body>
-    <title>Coin Flip with Score</title>
-<body/>
+let userGuess = "";
+let flipHistory = [];
+let wins = 0;
+let losses = 0;
 
-<body style="text-align:center; font-family:Arial;">
+function setGuess(guess) {
+    userGuess = guess;
+    document.getElementById("yourGuess").innerHTML = "Your guess: " + guess;
+}
 
-<h1>Coin Flip Game</h1>
+function updateStats() {
+    document.getElementById("total").innerHTML = wins + losses;
+    document.getElementById("wins").innerHTML = wins;
+    document.getElementById("losses").innerHTML = losses;
+}
 
-<button onclick="flipCoin()">Flip Coin</button>
-
-<h2 id="result">Result will appear here</h2>
-
-<p>Heads: <span id="heads">0</span></p>
-<p>Tails: <span id="tails">0</span></p>
-
-<script>
-    let headsCount = 0;
-    let tailsCount = 0;
-
-    function flipCoin() {
-        let result = Math.random() < 0.5 ? "Heads" : "Tails";
-
-        document.getElementById("result").innerHTML = result;
-
-        if (result === "Heads") {
-            headsCount++;
-            document.getElementById("heads").innerHTML = headsCount;
-        } else {
-            tailsCount++;
-            document.getElementById("tails").innerHTML = tailsCount;
-        }
+function flipCoin() {
+    if (userGuess === "") {
+        alert("Choose Heads or Tails first!");
+        return;
     }
-</script>
 
-</body>
-</html>
+    let result = Math.random() < 0.5 ? "Heads" : "Tails";
+    flipHistory.push(result);
+
+    document.getElementById("flipResult").innerHTML = "Coin landed on: " + result;
+
+    if (result === userGuess) {
+        document.getElementById("Outcome").innerHTML = "You guessed correctly!";
+        wins++;
+    } else {
+        document.getElementById("Outcome").innerHTML = "You guessed incorrectly!";
+        losses++;
+    }
+
+    updateStats();
+
+    if (losses >= 10) {
+        document.getElementById("Outcome").innerHTML = "Game Over! You reached 10 losses.";
+        document.getElementById("flipBtn").disabled = true;
+        document.getElementById("headsBtn").disabled = true;
+        document.getElementById("tailsBtn").disabled = true;
+    }
+}
+
